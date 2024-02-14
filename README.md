@@ -7,6 +7,12 @@ Cosas que tiene que hacer:
 - actualizar la ganancia de un producto (actualizar precio manual)
 - actualizar los precios de los productos de forma automatica
 
+## Problemas
+Lo ideal seria separar Oferta y Precio en dos microservicios, porque con este enfoque ocurre lo siguiente:
+1. El usuario pide cargar las ofertas al ms (GET)
+2. El ms busca las ofertas vigentes, y carga la info de los productos asociados llamando a ms-productos
+3. (aca esta el "problema?") ms-productos llama a este ms para cargar los precios de los productos
+
 ## Info
 Un producto tiene una oferta, una oferta puede estar
 asociada a varios productos.
