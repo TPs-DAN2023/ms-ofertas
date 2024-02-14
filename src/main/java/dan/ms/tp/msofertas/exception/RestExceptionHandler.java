@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.RestClientException;
 
 import jakarta.validation.ConstraintViolationException;
 
@@ -52,6 +53,19 @@ public class RestExceptionHandler {
         info.setName(e.getConstraintViolations().toString());
         
         return new ResponseEntity<>(info, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {RestClientException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    ResponseEntity<ExceptionInfo> handleViolation(RestClientException e) {
+        
+        ExceptionInfo info = new ExceptionInfo();
+
+        info.setStatus(500);
+        info.setMessage("Error comunicando con otro microservicio: \n" + e.getMessage());
+        info.setName(e.getClass().getName());
+        
+        return new ResponseEntity<>(info, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

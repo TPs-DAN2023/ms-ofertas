@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Range;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,6 +33,6 @@ public class Oferta {
     private Double descuento;
     @NotNull
     @Size(min = 1)
-    private List<Producto> productos;
+    private List<@Valid Producto> productos;
 
 }

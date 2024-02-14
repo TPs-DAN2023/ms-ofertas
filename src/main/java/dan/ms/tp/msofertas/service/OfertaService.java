@@ -7,8 +7,8 @@ import dan.ms.tp.msofertas.exception.NotFoundException;
 
 public interface OfertaService {
     
-    Oferta createOferta(Oferta oferta);
-    List<Oferta> getAllOfertasVigentes();
+    Oferta createOferta(Oferta oferta) throws NotFoundException;
+    List<Oferta> getAllOfertasVigentes() throws NotFoundException;
     Oferta getOfertaById(String id) throws NotFoundException;
     Oferta deleteOferta(Oferta oferta);
 
