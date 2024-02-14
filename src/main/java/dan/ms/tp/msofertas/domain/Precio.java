@@ -1,7 +1,6 @@
-package main.java.dan.ms.tp.msofertas.domain;
+package dan.ms.tp.msofertas.domain;
 
 import java.time.Instant;
-import dan.ms.tp.msofertas.domain.Producto;
 
 public class Precio {
     
