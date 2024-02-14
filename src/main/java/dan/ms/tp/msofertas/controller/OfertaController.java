@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ public class OfertaController {
     private OfertaService ofertaService;
 
     @PostMapping()
-    ResponseEntity<Oferta> createOferta(@RequestBody Oferta oferta) {
+    ResponseEntity<Oferta> createOferta(@RequestBody @Validated Oferta oferta) {
         
         try {
             Oferta o = ofertaService.createOferta(oferta);
@@ -55,7 +56,7 @@ public class OfertaController {
     }
 
     @PatchMapping()
-    ResponseEntity<Oferta> darOfertaDeBaja(@RequestBody Oferta oferta) {
+    ResponseEntity<Oferta> darOfertaDeBaja(@RequestBody @Validated Oferta oferta) {
         try {
             Oferta o = ofertaService.deleteOferta(oferta);
             return ResponseEntity.ok().body(o);
