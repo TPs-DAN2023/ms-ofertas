@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-@RestController("/api/ofertas")
+@RestController("/api/ofertas-precios/ofertas")
 public class OfertaController {
     
     @Autowired
@@ -30,6 +30,7 @@ public class OfertaController {
             return ResponseEntity.status(201).body(o);
         } catch (Exception e) {
             // other exceptions are handled by the global exception handler
+            System.out.println(e.toString());
             return ResponseEntity.status(500).build();
         }
         
@@ -41,6 +42,7 @@ public class OfertaController {
             List<Oferta> oList = ofertaService.getAllOfertasVigentes();
             return ResponseEntity.ok().body(oList);
         } catch (Exception e) {
+            System.out.println(e.toString());
             return ResponseEntity.status(500).build();
         }
     }
@@ -51,6 +53,7 @@ public class OfertaController {
             Oferta o = ofertaService.getOfertaById(id);
             return ResponseEntity.ok().body(o);
         } catch (Exception e) {
+            System.out.println(e.toString());
             return ResponseEntity.status(500).build();
         }
     }
@@ -61,6 +64,7 @@ public class OfertaController {
             Oferta o = ofertaService.deleteOferta(oferta);
             return ResponseEntity.ok().body(o);
         } catch (Exception e) {
+            System.out.println(e.toString());
             return ResponseEntity.status(500).build();
         }
     }
