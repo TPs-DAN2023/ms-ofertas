@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("api/ofertas-precios/health")
-public class HeatlhController {
+@RequestMapping("api/health")
+public class HealthController {
 
   @GetMapping
   public ResponseEntity<Map<String, String>> health(HttpServletRequest request) {
