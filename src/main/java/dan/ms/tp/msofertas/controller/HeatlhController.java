@@ -16,22 +16,25 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("api/ofertas-precios/health")
 public class HeatlhController {
-    
-    @GetMapping
-    public ResponseEntity<Map<String,String>> health(HttpServletRequest request){
-        // Get the server name
-        Map<String,String> res = new LinkedHashMap<>();
-        res.put("serverName",request.getServerName());
-        res.put("app","ms-ofertas-precios");
-        res.put("status","OK");
-        res.put("timestamp",Instant.now().toString());
-        try {
-            InetAddress localhost = InetAddress.getLocalHost();
-            res.put("serverIp",localhost.getHostAddress());
-        } catch (UnknownHostException e) {
-            e.printStackTrace(); // Handle the exception appropriately in your code
-        }
-        return ResponseEntity.ok().body(res);
+
+  @GetMapping
+  public ResponseEntity<Map<String, String>> health(HttpServletRequest request) {
+    // Get the server name
+    Map<String, String> res = new LinkedHashMap<>();
+    res.put("serverName", request.getServerName());
+    res.put("app", "ms-ofertas-precios");
+    res.put("status", "OK");
+    res.put("timestamp", Instant.now().toString());
+    try {
+      InetAddress localhost = InetAddress.getLocalHost();
+      res.put("serverIp", localhost.getHostAddress());
+    } catch (UnknownHostException e) {
+      res.put("serverIp", "unknown");
+      res.put("status", "ERROR");
+      res.put("error", e.getMessage());
+      return ResponseEntity.status(500).body(res);
     }
+    return ResponseEntity.ok().body(res);
+  }
 
 }
