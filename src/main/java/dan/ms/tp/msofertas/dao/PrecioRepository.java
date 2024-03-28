@@ -9,7 +9,7 @@ import dan.ms.tp.msofertas.domain.Producto;
 @Repository 
 public interface PrecioRepository extends MongoRepository<Precio, String> {
 
-    @Query("'producto._id': ?0}")
+    @Query("{'producto._id': ?0}")
     Precio findByProducto(String idProducto);
     
 }
