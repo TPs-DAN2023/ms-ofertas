@@ -61,7 +61,6 @@ public class OfertaServiceImpl implements OfertaService {
 
                 p.setNombre(prod.getNombre());
                 p.setDescripcion(prod.getDescripcion());
-                p.setPrecio(prod.getPrecio());
             }
         }
 

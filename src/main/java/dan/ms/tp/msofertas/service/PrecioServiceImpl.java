@@ -21,26 +21,15 @@ public class PrecioServiceImpl implements PrecioService {
     @Autowired
     private Environment environment;
 
-    public Precio createPrecio(Precio precio) throws NotFoundException {
+    public Precio createPrecio(Precio precio) {
 
         precio.setFechaActualizacion(Instant.now());
-
-        RestTemplate restTemplate = new RestTemplate();
-        Producto associatedProduct = precio.getProducto();
-        Producto prod = restTemplate.exchange(
-                environment.getProperty("env.msproductos.url") + "api/productos/" + associatedProduct.getId(),
-                HttpMethod.GET, null,
-                Producto.class).getBody();
-
-        if (prod == null) throw new NotFoundException("Producto", associatedProduct.getId());
+        if(precio.getGanancia() == null)
+            precio.setGanancia(2d);
+        precio.setMonto(precio.getGanancia()*precio.getProducto().getCosto());
+        precio.setCosto(precio.getProducto().getCosto());
 
         return precioRepository.save(precio);
-    }
-
-    @Override
-    public Precio getPrecioById(String id) throws NotFoundException {
-        return precioRepository.findById(id)
-                                .orElseThrow(() -> new NotFoundException("Precio", id));
     }
 
     @Override
@@ -48,4 +37,23 @@ public class PrecioServiceImpl implements PrecioService {
        return precioRepository.findAll();
     }
 
+
+    @Override
+    public Precio getPrecioFromProducto(Producto producto) {
+        Precio precio = precioRepository.findByProducto(producto.getId());
+        if(precio == null) {
+            precio = new Precio();
+            precio.setProducto(producto);
+            precio = createPrecio(precio);
+        }
+        else if (precio.getCosto() != producto.getCosto()) {
+            precio.setCosto(producto.getCosto());
+            precio.setMonto(precio.getGanancia()*precio.getCosto());
+            precio.setFechaActualizacion(Instant.now());
+            precio = precioRepository.save(precio);
+        }
+        precio.getProducto().setNombre(producto.getNombre());
+        precio.getProducto().setDescripcion(producto.getDescripcion());
+        return precio;
+    }
 }

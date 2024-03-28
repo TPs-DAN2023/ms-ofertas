@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 import dan.ms.tp.msofertas.domain.Precio;
+import dan.ms.tp.msofertas.domain.Producto;
 import dan.ms.tp.msofertas.service.PrecioService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +37,12 @@ public class PrecioController {
 
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Precio> getPrecioById(@PathVariable String id) {
+  @GetMapping("/producto")
+  public ResponseEntity<Precio> getPrecioFromProducto(@RequestBody @Validated Producto producto) {
 
     try {
-      Precio precio = precioService.getPrecioById(id);
-      return ResponseEntity.ok().body(precio);
+      Precio precio = precioService.getPrecioFromProducto(producto);
+      return ResponseEntity.ok().body(precio);      
     } catch (Exception e) {
       System.out.println(e.toString());
       return ResponseEntity.status(500).build();

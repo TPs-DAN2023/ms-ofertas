@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import lombok.Data;
 import lombok.experimental.PackagePrivate;
 
@@ -15,16 +16,14 @@ import lombok.experimental.PackagePrivate;
 public class Precio {
     
     @Id
-    @NotNull
     private String id;
-    private Double montoArs;
-    private Double valorDolar;
-    @NotNull
-    @FutureOrPresent
+    private Double monto;
     private Instant fechaActualizacion;
     private Double costo;
+    @NotNull
     private Double ganancia;
     @NotNull
+    @Valid
     private Producto producto;
 
 }
