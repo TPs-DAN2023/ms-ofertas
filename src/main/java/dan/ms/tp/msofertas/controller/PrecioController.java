@@ -37,7 +37,7 @@ public class PrecioController {
 
   }
 
-  @GetMapping("/producto")
+  @PostMapping("/producto")
   public ResponseEntity<Precio> getPrecioFromProducto(@RequestBody @Validated Producto producto) {
 
     try {
